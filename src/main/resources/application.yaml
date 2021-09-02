@@ -1,0 +1,5 @@
+game:
+    montyhall:
+        number-of-doors: 3
+        guest:
+            strategy: keep-my-mind
