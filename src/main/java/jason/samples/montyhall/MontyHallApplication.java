@@ -25,7 +25,7 @@ public class MontyHallApplication {
 		SpringApplication.run(MontyHallApplication.class, args);
 	}
 
-	@Scheduled(fixedRate = 2000)
+	@Scheduled(fixedRate = 500)
 	public void runGame() {
 		game.reset();
 		game.join(guest);
