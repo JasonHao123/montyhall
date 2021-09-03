@@ -1,5 +1,11 @@
 package jason.samples.montyhall.model;
 
+/**
+ * Statistics for the game, which includes number of round , number of win, and winning percentage.
+ * 
+ * @author jason
+ *
+ */
 public class GameStatistics {
 	private int numberOfGame;
 	private int win;
@@ -35,5 +41,8 @@ public class GameStatistics {
 		}
 	}
 	
-	
+	@Override
+	public String toString() {
+		return String.format("%d/%d (%d)",win,numberOfGame,winRatio);
+	}
 }

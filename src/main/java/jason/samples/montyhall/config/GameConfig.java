@@ -1,24 +1,27 @@
 package jason.samples.montyhall.config;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import jason.samples.montyhall.agent.Guest;
 import jason.samples.montyhall.agent.Host;
-import jason.samples.montyhall.agent.impl.DefaultGuest;
-import jason.samples.montyhall.agent.impl.DefaultHost;
-import jason.samples.montyhall.agent.strategy.Strategy;
-import jason.samples.montyhall.exception.GameInvalidArgumentException;
+import jason.samples.montyhall.agent.impl.DefaultMontyHalGuest;
+import jason.samples.montyhall.agent.impl.DefaultMontyHallHost;
+import jason.samples.montyhall.agent.strategy.AlwaysChangeMindStrategy;
+import jason.samples.montyhall.agent.strategy.KeepMyMindStrategy;
 import jason.samples.montyhall.game.Game;
 import jason.samples.montyhall.game.impl.MontyHallGame;
 
+/**
+ * Initialize components for the game, which we create two games, let two different types of guest to join them, and simulate the game.
+ * 
+ * @author jason
+ *
+ */
 @Configuration
 public class GameConfig {
 	
@@ -27,37 +30,35 @@ public class GameConfig {
 	@Value("${game.montyhall.number-of-doors}")
 	private int numberOfDoors;
 	
-	@Value("${game.montyhall.guest.strategy}")
-	private String guestStrategy;
+	@Value("${game.montyhall.host.number-of-box-to-open}")
+	private int numberOfBoxToOpen;
 
-	@Bean
-	public Guest guest(@Autowired List<Strategy> strategies,@Autowired ApplicationContext context) {
-		logger.info("create guest with {} strategy",guestStrategy);
-		if(guestStrategy == null) {
-			throw new GameInvalidArgumentException("invalid guest strategy");
-		}
-		Object bean = context.getBean(guestStrategy);
-		if(bean == null ) {
-			throw new GameInvalidArgumentException(String.format("strategy %s not found",guestStrategy));
-		}
-		if(!(bean instanceof Strategy)) {
-			throw new GameInvalidArgumentException(String.format("strategy %s must implement Strategy interface",guestStrategy));
-		}
-		return new DefaultGuest((Strategy)bean);
+	@Bean("guest1")
+	public Guest guest1(@Autowired KeepMyMindStrategy strategy) {
+		return new DefaultMontyHalGuest(strategy);
+	}
+	
+	@Bean("guest2")
+	public Guest guest1(@Autowired AlwaysChangeMindStrategy strategy) {
+		return new DefaultMontyHalGuest(strategy);
 	}
 	
 	@Bean
 	public Host host() {
 		logger.info("create host");
 	
-		return new DefaultHost();
+		return new DefaultMontyHallHost(numberOfBoxToOpen);
 	}
 	
-	@Bean
-	public Game game() {
-		logger.info("create game");
-		return new MontyHallGame(numberOfDoors);
+	@Bean("game1")
+	public Game game1() {
+		logger.info("create game1");
+		return new MontyHallGame("game1",numberOfDoors);
 	}
 	
-	
+	@Bean("game2")
+	public Game game2() {
+		logger.info("create game2");
+		return new MontyHallGame("game2",numberOfDoors);
+	}
 }

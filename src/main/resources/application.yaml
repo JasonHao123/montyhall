@@ -5,14 +5,5 @@ logging:
 game:
     montyhall:
         number-of-doors: 3
-        guest:
-            strategy: keep-my-mind
-            
-management:
-  endpoint:
-    health:
-      show-details: "ALWAYS"
-  endpoints:
-    web:
-      exposure:
-        include: "*"
+        host:
+            number-of-box-to-open: 1

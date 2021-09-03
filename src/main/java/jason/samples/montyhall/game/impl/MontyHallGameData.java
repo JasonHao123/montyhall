@@ -2,6 +2,11 @@ package jason.samples.montyhall.game.impl;
 
 import jason.samples.montyhall.game.GameData;
 
+/**
+ * Monty Hall game data, which will include door state and guest choice
+ * @author jason
+ *
+ */
 public class MontyHallGameData extends GameData{
 
 	int[] doors;

@@ -10,11 +10,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import jason.samples.montyhall.agent.constant.DoorStatus;
-import jason.samples.montyhall.agent.impl.DefaultGuest;
+import jason.samples.montyhall.agent.impl.DefaultMontyHalGuest;
 import jason.samples.montyhall.exception.GameInvalidArgumentException;
 import jason.samples.montyhall.game.GameData;
 import jason.samples.montyhall.game.impl.MontyHallGameData;
 
+/**
+ * Strategy implementation to simulate always change your mind, when the box is opened.
+ * 
+ * @author jason
+ *
+ */
 @Component("always-change-mind")
 public class AlwaysChangeMindStrategy implements Strategy{
 	private static final Logger logger = LoggerFactory.getLogger(AlwaysChangeMindStrategy.class);
@@ -22,7 +28,6 @@ public class AlwaysChangeMindStrategy implements Strategy{
 	private Random random = new Random(new Date().getTime());
 	@Override
 	public int perform(GameData data) {
-		logger.debug("perform");
 		if(!(data instanceof MontyHallGameData)) {
 			throw new GameInvalidArgumentException("AlwaysChangeMindStrategy only accept MontyHallGameData");
 		}

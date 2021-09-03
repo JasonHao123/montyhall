@@ -1,5 +1,11 @@
 package jason.samples.montyhall.game;
 
+/**
+ * Common game data structure, to keep real time game data, participants can react based on the data.
+ * 
+ * @author jason
+ *
+ */
 public class GameData {
 	private boolean win;
 	private boolean done;

@@ -14,6 +14,12 @@ import jason.samples.montyhall.exception.GameInvalidArgumentException;
 import jason.samples.montyhall.game.GameData;
 import jason.samples.montyhall.game.impl.MontyHallGameData;
 
+/**
+ * Strategy to simulate you will always keep your first choice.
+ * 
+ * @author jason
+ *
+ */
 @Component("keep-my-mind")
 public class KeepMyMindStrategy implements Strategy{
 	private static final Logger logger = LoggerFactory.getLogger(KeepMyMindStrategy.class);
@@ -21,7 +27,6 @@ public class KeepMyMindStrategy implements Strategy{
 	private Random random = new Random(new Date().getTime());
 	@Override
 	public int perform(GameData data) {
-		logger.debug("perform");
 		if(!(data instanceof MontyHallGameData)) {
 			throw new GameInvalidArgumentException("AlwaysChangeMindStrategy only accept MontyHallGameData");
 		}
